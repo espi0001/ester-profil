@@ -1,0 +1,174 @@
+---
+const { cardContent } = Astro.props;
+---
+
+<section class="scrolling">
+  <div class="scrolling-top">
+    <div class="text">
+      <h3>My projects</h3>
+    </div>
+    <div class="buttons">
+      <button class="scroll-arrow left" id="scroll-left">&larr;</button>
+      <button class="scroll-arrow right" id="scroll-right">&rarr;</button>
+    </div>
+  </div>
+
+  <ul class="full-width">
+    {
+      cardContent.map((card) => (
+        <li>
+          <a href={card.link}>
+            <img src={card.image} alt="" />
+            <h6>{card.title}</h6>
+            <p>{card.body}</p>
+          </a>
+
+          <a href={card.link} style="font-weight: bold;">
+            Link to the project
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  @layer components {
+    .scrolling {
+      grid-column: full;
+      display: grid;
+      grid-template-columns: var(--layout-grid2);
+      grid-template-rows: auto auto;
+      row-gap: var(--space-2xl);
+      padding: var(--space-xl) 0;
+
+      background: var(--sort);
+      color: var(--baggrund);
+      @media (width < 600px) {
+        padding: var(--space-xs);
+      }
+      > ul {
+        scroll-snap-type: x mandatory;
+        grid-column: 1 / -1;
+        grid-row: 2;
+        padding-inline: max(1rem, 50% - var(--content) / 10px);
+
+        li {
+          scroll-snap-align: center;
+          &:first-child {
+            margin-left: calc(50% - var(--content) / 2);
+            @media (width < 600px) {
+              margin-left: 0px;
+            }
+          }
+          &:last-child {
+            margin-right: calc(50% - var(--content) / 2);
+            @media (width < 600px) {
+              margin-right: 0px;
+            }
+          }
+        }
+      }
+
+      .scrolling-top {
+        grid-column: 2 / 4;
+        grid-row: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+
+        .text {
+          max-width: 50%;
+          .icon {
+            width: 100px;
+            margin-bottom: var(--space-xs);
+          }
+        }
+        .buttons {
+          display: flex;
+          gap: var(--space-s);
+        }
+      }
+
+      @media (width < 600px) {
+        gap: 1rem;
+        .scrolling-top {
+          flex-direction: column;
+          gap: 1rem;
+          align-items: flex-start;
+          .text {
+            max-width: 100%;
+          }
+          .buttons {
+            margin-top: var(--space-s);
+          }
+        }
+      }
+    }
+    /* scrolling stop */
+
+    .scroll-arrow {
+      background: var(--baggrund);
+      color: var(--sort);
+      padding: 11px 14px;
+      border-radius: 50px;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s ease-in-out;
+
+      &:hover {
+        background-color: var(--brun);
+        color: var(--sort);
+      }
+    }
+
+    .full-width {
+      display: flex;
+      gap: var(--space-xs);
+      overflow-x: auto;
+      list-style: none;
+      margin-top: 0;
+
+      li {
+        flex-basis: min(500px, 90%);
+        flex-shrink: 0;
+        background: var(--baggrund);
+        color: var(--sort);
+        border-radius: 30px;
+        padding: 2.75rem 2.1875rem;
+        align-self: start;
+        display: grid;
+        cursor: pointer;
+        transition: all 0.4s ease-in-out;
+
+        &:hover {
+          transform: scale(1.04);
+        }
+
+        @media (width < 600px) {
+          flex-basis: min(300px, 90%);
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.querySelector(".scrolling ul");
+    const leftButton = document.getElementById("scroll-left");
+    const rightButton = document.getElementById("scroll-right");
+
+    const cardWidth = 400; // Width of each card
+    const scrollAmount = cardWidth + 16; // cardWidth + gap between cards
+
+    leftButton.addEventListener("click", () => {
+      container.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+    });
+
+    rightButton.addEventListener("click", () => {
+      container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    });
+  });
+</script>
