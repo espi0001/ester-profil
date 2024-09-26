@@ -1,16 +1,163 @@
 ---
-
+import MainLayout from "../layouts/MainLayout.astro";
+import Overlay from "../components/Overlay.astro";
+import { Icon } from "astro-icon/components";
+import ScrollingContainer from "../components/ScrollingContainer.astro";
+import { cardContent } from "../data/card-content.js";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<MainLayout title="Forside">
+  <Overlay header="Ester Piazza-Koldbye" />
+  <!-- <Overlay header="Om mig" /> -->
+
+  <section class="om-mig" id="info">
+    <article>
+      <div class="intro">
+        <img src="https://espi0001.github.io/portfolio_site/img/om_mig/om_mig3.png" alt="mig" />
+        <div>
+          <h2>About me</h2>
+          <p>Jeg er en målrettet og arbejdsom MMD-studerende på 3. semester ved KEA, hvor jeg har valgt Frontend som valgfag med fokus på kodning. Jeg arbejder selvstændigt og bevarer overblikket, selv i pressede og stressede situationer. Jeg har et skarpt øje for detaljer og er god til at observere, hvilket gør mig i stand til at tage ansvar og uddelegere opgaver effektivt.</p>
+          <p>Gennem min tid som vejleder på skolen har jeg fået erfaring med planlægning af store arrangementer, håndtering af sociale medier og evnen til at arbejde under stramme deadlines. Jeg trives i samarbejde og er ikke bange for at tage ansvar for større projekter.</p>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <article class="skills">
+    <div>
+      <h3>Coding</h3>
+      <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
+        <li>React</li>
+        <li>Astro</li>
+        <li>JSON</li>
+        <li>GIT</li>
+      </ul>
+    </div>
+
+    <div>
+      <h3>Technical skills</h3>
+      <ul>
+        <li>Frontend web development</li>
+        <li>UX & UI design</li>
+        <li>Graphic design</li>
+        <li>Content creation</li>
+        <li>User testing</li>
+        <li>Project management</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Tools / Others</h3>
+      <ul>
+        <li>VSCode</li>
+        <li>Adobe pakken</li>
+        <li>Github</li>
+        <li>Figma</li>
+        <li>SEO</li>
+        <li>Supabase (database)</li>
+      </ul>
+    </div>
+
+    <div>
+      <h3>Languages</h3>
+      <ul>
+        <li>Danish</li>
+        <li>Italian</li>
+        <li>English</li>
+      </ul>
+    </div>
+  </article>
+
+  <ScrollingContainer cardContent={cardContent} />
+
+  <article class="content">
+    <div class="mails">
+      <div class="mails_grid">
+        <h2>Kontakt mig</h2>
+
+        <div class="kontakt_oplysninger">
+          <a href="https://www.linkedin.com/in/ester-piazza-koldbye-3698181b9/" target="_blank"> <Icon name="linked" /> <span>Ester Piazza-Koldbye</span></a>
+          <a href="mailto:ester.piazza.koldbye@gmail.com?"> <Icon name="mail" /> <span>ester.piazza.koldbye@gmail.com</span></a>
+          <a href="tel:+4528923400"> <Icon name="phone" /> <span>+45 28 92 34 00</span></a>
+        </div>
+      </div>
+
+      <div class="billede">
+        <img src="https://espi0001.github.io/portfolio_site/img/om_mig/om_mig3.png" alt="mig" />
+      </div>
+    </div>
+  </article>
+</MainLayout>
+
+<style>
+  section {
+    grid-column: full;
+    display: grid;
+    grid-template-columns: subgrid;
+  }
+  article {
+    grid-column: content;
+    display: grid;
+  }
+  .om-mig {
+    background: var(--brun);
+  }
+  .projekter {
+    background: var(--sort);
+    article h3,
+    article a {
+      color: var(--baggrund);
+    }
+  }
+  .intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-s-m);
+  }
+
+  .skills {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-s-m);
+  }
+  .mails {
+    display: flex;
+    flex-direction: column;
+
+    padding-top: 80px;
+    margin-bottom: 125px;
+  }
+  .content {
+    padding-top: 8%;
+  }
+  h1 {
+    padding-bottom: 44px;
+  }
+  .kontakt_oplysninger {
+    a {
+      display: flex;
+    }
+    svg {
+      width: 24px;
+      height: 24px;
+      margin-right: 12px;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .mails {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .mails {
+      padding-top: 125px;
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>
